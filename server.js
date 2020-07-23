@@ -25,7 +25,7 @@ app.use(express.json());
 // ================================================================================
 
 // require('./public/routes/apiRoutes')(app);
-require('./public/routes/htmlRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
 // =============================================================================
 // LISTENER
