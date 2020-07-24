@@ -4,6 +4,7 @@
 // ==============================================================================
 
 var express = require('express');
+var path = require("path");
 
 
 // ==============================================================================
@@ -26,8 +27,11 @@ app.use(express.static(__dirname + "/public/assets/js/"));
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
+var apiRoute = require('./routes/apiRoutes');
+var htmlRoute = require('./routes/htmlRoutes');
+
+app.use('/', htmlRoute);
+app.use('/api', apiRoute);
 
 // =============================================================================
 // LISTENER

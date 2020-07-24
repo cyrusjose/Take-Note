@@ -3,38 +3,45 @@
 // We are linking our routes to a series of "data" sources.
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
+
+var router = require("express").Router();
+
 const fs = require('fs');
 const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 
-var noteJSON = require('../db/db.json');
+// var noteJSON = '../db/db.json';
 // var noteListItems = require('../public/assets/js/index')
 
 
-module.exports = function(app) {
-    app.get('/api/notes', function(req, res) {
-        readFileAsync(noteJSON, 'utf8', function(err, data){
+// module.exports = function(app) {
+    router.get('/notes', function(req, res) {
+        readFileAsync('../db/db.json', 'utf8', function(err, data){
             if (err) throw err;
-            var notesData = JSON.parse(data)
-            return res.json(notesData);
+            return res.json(JSON.parse(data));
         });
     });
 
-    app.post('/api/notes', function(req, res){
+    router.post('/notes', function(req, res){
         var newNotes = req.body;
-        // newNotes.id=1;
         
-        readFileAsync(noteJSON, 'utf8', function(err, data){
+        readFileAsync('../db/db.json', 'utf8', function(err, data){
             if (err) throw err;
             var readDb = JSON.parse(data);
+            newNotes.id = readDb.length + 1;
             readDb.push(newNotes);
-            writeFileAsync(noteJSON, 'utf8', function(err, data){
+            writeFileAsync('../db/db.json', JSON.stringify(readDb), function(err){
                 if (err) throw err;
-                res.json(true);
+                res.json({success: true});
             });
         });
     });
-    
-}
+
+    // router.delete('/notes/:id', funciont(req,res){
+    //     // Follow same example of post but delete.
+    //     // readFileAsync();
+    // }) 
+    module.exports = router;
+// }
