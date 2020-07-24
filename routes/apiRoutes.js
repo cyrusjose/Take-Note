@@ -5,15 +5,16 @@
 // ===============================================================================
 
 var noteJSON = require('../db/db.json');
-// var noteData = require('../db/db.json');
+var noteListItems = require('../public/assets/js/index')
 
 
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         return res.json(noteJSON);
     });
-    // app.post("/api/notes", function(req, res) {
-    //     var newNote = req.body;
-    //     res.json(newNote);
-    // });
+    app.post("/api/notes", function(req, res) {
+        var newNote = req.body;
+        noteListItems.push(newNote);
+        res.json(newNote);
+    });
 }
