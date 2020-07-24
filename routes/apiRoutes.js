@@ -5,6 +5,7 @@
 // ===============================================================================
 
 var router = require("express").Router();
+const { Router } = require("express");
 
 const fs = require('fs');
 const util = require('util');
@@ -14,10 +15,8 @@ const { json } = require("body-parser");
 
 
 var noteJSON = '../db/db.json';
-// var noteListItems = require('../public/assets/js/index')
 
 
-// module.exports = function(app) {
     router.get('/notes', function(req, res) {
         readFileAsync(noteJSON, 'utf8', function(err, data){
             if (err) throw err;
@@ -45,4 +44,3 @@ var noteJSON = '../db/db.json';
     //     // readFileAsync();
     // }) 
     module.exports = router;
-// }
