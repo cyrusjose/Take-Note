@@ -11,4 +11,8 @@ module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
         res.json(notesData);
     });
+    app.post("/api/notes", function(req, res) {
+        var newNote = req.body;
+        res.json(newNote);
+    });
 }
