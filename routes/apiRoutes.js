@@ -15,11 +15,14 @@ var noteListItems = require('../public/assets/js/index')
 
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
-        return res.json(noteJSON);
+        readFileAsync(noteJSON, 'utf8', function(err, data){
+            if (err){
+                return console.log(err);
+            }
+            var notesData = JSON.parse(data)
+            return res.json(notesData);
+        });
+
     });
-    app.post("/api/notes", function(req, res) {
-        var newNote = req.body;
-        noteListItems.push(newNote);
-        res.json(newNote);
-    });
+    
 }
