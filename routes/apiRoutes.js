@@ -4,7 +4,7 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
 
-var notesData = require('../data/noteData');
+var notesData = require('../db/db.json');
 
 
 module.exports = function(app) {
