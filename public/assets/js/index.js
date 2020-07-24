@@ -1,4 +1,4 @@
-var init = function() {
+
     const $noteTitle = $(".note-title");
     const $noteText = $(".note-textarea");
     const $saveNoteBtn = $(".save-note");
@@ -150,6 +150,4 @@ var init = function() {
 
     // Gets and renders the initial list of notes
     getAndRenderNotes();
-};
-init();
-module.exports = init;
+
