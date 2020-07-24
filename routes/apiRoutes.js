@@ -4,15 +4,16 @@
 // These data sources hold arrays of information on table-data, waitinglist, etc.
 // ===============================================================================
 
-var notesData = require('../db/db.json');
+var noteJSON = require('../db/db.json');
+// var noteData = require('../db/db.json');
 
 
 module.exports = function(app) {
     app.get('/api/notes', function(req, res) {
-        res.json(notesData);
+        return res.json(noteJSON);
     });
-    app.post("/api/notes", function(req, res) {
-        var newNote = req.body;
-        res.json(newNote);
-    });
+    // app.post("/api/notes", function(req, res) {
+    //     var newNote = req.body;
+    //     res.json(newNote);
+    // });
 }
