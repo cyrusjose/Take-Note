@@ -10,15 +10,16 @@ const fs = require('fs');
 const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
+const { json } = require("body-parser");
 
 
-// var noteJSON = '../db/db.json';
+var noteJSON = '../db/db.json';
 // var noteListItems = require('../public/assets/js/index')
 
 
 // module.exports = function(app) {
     router.get('/notes', function(req, res) {
-        readFileAsync('../db/db.json', 'utf8', function(err, data){
+        readFileAsync(noteJSON, 'utf8', function(err, data){
             if (err) throw err;
             return res.json(JSON.parse(data));
         });
@@ -27,12 +28,12 @@ const writeFileAsync = util.promisify(fs.writeFile);
     router.post('/notes', function(req, res){
         var newNotes = req.body;
         
-        readFileAsync('../db/db.json', 'utf8', function(err, data){
+        readFileAsync(noteJSON, 'utf8', function(err, data){
             if (err) throw err;
             var readDb = JSON.parse(data);
             newNotes.id = readDb.length + 1;
             readDb.push(newNotes);
-            writeFileAsync('../db/db.json', JSON.stringify(readDb), function(err){
+            writeFileAsync(noteJSON, JSON.stringify(readDb), function(err){
                 if (err) throw err;
                 res.json({success: true});
             });
