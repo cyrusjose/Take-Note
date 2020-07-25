@@ -25,7 +25,7 @@ class NotesData {
             catch (err){
                 console.log(err);
             };
-            return notrArr;
+            return noteArr;
         });
     };
 
