@@ -5,7 +5,7 @@
 // ===============================================================================
 
 const router = require("express").Router();
-const dbNotesJSON = require('../db/db.json');
+const dbNotesJSON = require("../db/db.json");
 
 const fs = require("fs");
 const util = require("util");
@@ -28,12 +28,12 @@ router.post("/api/notes", function (req, res) {
     var readDb = JSON.parse(data);
     newNotes.id = readDb.length + 1;
     readDb.push(newNotes);
-  }).then(() =>
+  }).then(() => {
     writeFileAsync(noteJSON, JSON.stringify(readDb), function (err) {
       if (err) throw err;
       res.json({ success: true });
-    }).then(() => res.json(dbNotesJSON))
-  );
+    }).then(() => res.json(dbNotesJSON));
+  });
 });
 
 // router.delete('/notes/:id', funciont(req,res){
