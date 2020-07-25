@@ -31,18 +31,17 @@ router.post("/api/notes", function (req, res) {
       var readDb = JSON.parse(data);
       newNotes.id = readDb.length + 1;
       readDb.push(newNotes);
-
-      writeFileAsync(noteJSON, JSON.stringify(readDb))
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  writeFileAsync(noteJSON, JSON.stringify(readDb))
     .then((data) => {
       res.json({ success: true });
       return res.json(dbNotesJSON);
     })
     .catch((err) => {
-      throw err;
-    });
-    })
-    .catch((err) => {
-      throw err;
+      console.log(err);
     });
 });
 
