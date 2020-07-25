@@ -12,7 +12,7 @@ router.get('/notes', (req, res) => {
     .then(notes => res.json(notes))
 });
 
-router.post('/notes', (req, res) => {
+router.post('/api/notes', (req, res) => {
     notes.addNotes(req.body)
     .then(notes => res.json(notes))
 });
