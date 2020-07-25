@@ -102,7 +102,7 @@ const handleRenderSaveBtn = function () {
 };
 
 // Render's the list of note titles
-const renderNoteList = (notes) => {
+const renderNoteList = (note) => {
   $noteList.empty();
 
   const noteListItems = [];

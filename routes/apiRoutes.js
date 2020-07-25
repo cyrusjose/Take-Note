@@ -15,9 +15,9 @@ const writeFileAsync = util.promisify(fs.writeFile);
 const noteJSON = "db/db.json";
 
 router.get("/notes", function (req, res) {
-  readFileAsync(noteJSON, "utf8")
+  return readFileAsync(noteJSON, "utf8")
     .then((data) => {
-      return res.json(JSON.parse(data));
+      res.json(JSON.parse(data));
     })
     .catch((err) => {
       console.error(err);
@@ -31,6 +31,7 @@ router.post("/api/notes", function (req, res) {
       var readDb = JSON.parse(data);
       newNotes.id = readDb.length + 1;
       readDb.push(newNotes);
+      return res.json(readDb);
     })
     .catch((err) => {
       console.log(err);
