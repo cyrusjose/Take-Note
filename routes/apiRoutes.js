@@ -20,7 +20,7 @@ router.get("/notes", function (req, res) {
       res.json(JSON.parse(data));
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
     });
 });
 
