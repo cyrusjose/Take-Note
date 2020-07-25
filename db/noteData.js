@@ -7,11 +7,11 @@ class NotesData {
 
     readNotes(){
         return readFileAsync('db/db.json', 'utf8');
-    };
+    }
 
     writeNotes(note){
         return writeFileAsync('db/db.json', JSON.stringify(note))
-    };
+    }
 
     getNotes(){
         return this.readNotes().then(notes => {
@@ -27,7 +27,7 @@ class NotesData {
             };
             return noteArr;
         });
-    };
+    }
 
     addNotes(){
         this.idNum = 0;
@@ -37,8 +37,9 @@ class NotesData {
         // Get all the notes from previous and add new notes to the end of the array
         .then(notes => [...notes, newNote])
         // Write notes in file and update
-        .then(update => this.writeNotes(update)).then(() => newNote)
-    };
+        .then(update => this.writeNotes(update))
+        .then(() => newNote)
+    }
 
     // deleteNotes(){
 
