@@ -5,7 +5,7 @@
 // ===============================================================================
 
 const router = require("express").Router();
-const notes = require("../db/noteData.js");
+const notes = require("../db/noteData");
 
 router.get('/notes', (req, res) => {
     notes.getNotes().then(notes => res.json(notes))
