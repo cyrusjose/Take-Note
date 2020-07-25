@@ -14,26 +14,36 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 const noteJSON = "db/db.json";
 
-router.get("/api/notes", function (req, res) {
-  readFileAsync(noteJSON, "utf8", function (err, data) {
-    if (err) throw err;
-    return res.json(JSON.parse(data));
-  });
+router.get("/notes", function (req, res) {
+  readFileAsync(noteJSON, "utf8")
+    .then((data) => {
+      return res.json(JSON.parse(data));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 router.post("/api/notes", function (req, res) {
   var newNotes = req.body;
-  readFileAsync(noteJSON, "utf8", function (err, data) {
-    if (err) throw err;
-    var readDb = JSON.parse(data);
-    newNotes.id = readDb.length + 1;
-    readDb.push(newNotes);
-  }).then(() => {
-    writeFileAsync(noteJSON, JSON.stringify(readDb), function (err) {
-      if (err) throw err;
+  readFileAsync(noteJSON, "utf8")
+    .then((data) => {
+      var readDb = JSON.parse(data);
+      newNotes.id = readDb.length + 1;
+      readDb.push(newNotes);
+
+      writeFileAsync(noteJSON, JSON.stringify(readDb))
+    .then((data) => {
       res.json({ success: true });
-    }).then(() => res.json(dbNotesJSON));
-  });
+      return res.json(dbNotesJSON);
+    })
+    .catch((err) => {
+      throw err;
+    });
+    })
+    .catch((err) => {
+      throw err;
+    });
 });
 
 // router.delete('/notes/:id', funciont(req,res){
