@@ -9,14 +9,14 @@ class NotesData {
         return readFileAsync('db/db.json', 'utf8');
     };
 
-    writeNotes(){
+    writeNotes(note){
         return writeFileAsync('db/db.json', JSON.stringify(note))
     };
 
     getNotes(){
         return this.readNotes().then(notes => {
             console.log(notes);
-            let noteArr = [];
+            let noteArr;
             // Try this block of code
             try {
                 noteArr = [].concat(JSON.parse(notes))
@@ -32,17 +32,17 @@ class NotesData {
     addNotes(){
         this.idNum = 0;
         const {title, text} = note;
-        const newNotes = {title, text, id: ++this.idNum};
+        const newNote = {title, text, id: ++this.idNum};
         return this.getNotes()
         // Get all the notes from previous and add new notes to the end of the array
-        .then(notes => [...notes, newNotes])
+        .then(notes => [...notes, newNote])
         // Write notes in file and update
-        .then(update => this.writeNotes(update)).then(newNotes);
+        .then(update => this.writeNotes(update)).then(() => newNote)
     };
 
-    deleteNotes(){
+    // deleteNotes(){
 
-    }
+    // }
 }
 
 module.exports = new NotesData();
