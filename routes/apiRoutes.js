@@ -12,9 +12,9 @@ const util = require("util");
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
-const noteJSON = "db.json";
+const noteJSON = "db/db.json";
 
-router.get("/notes", function (req, res) {
+router.get("/api/notes", function (req, res) {
   readFileAsync(noteJSON, "utf8", function (err, data) {
     if (err) throw err;
     return res.json(JSON.parse(data));
