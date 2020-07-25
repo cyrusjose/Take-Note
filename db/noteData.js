@@ -14,7 +14,19 @@ class NotesData {
     };
 
     getNotes(){
-
+        return this.readNotes().then(notes => {
+            console.log(notes);
+            let noteArr = [];
+            // Try this block of code
+            try {
+                noteArr = [].concat(JSON.parse(notes))
+            }
+            // if there's an error
+            catch (err){
+                console.log(err);
+            };
+            return notrArr;
+        });
     };
 
     addNotes(){
@@ -22,7 +34,7 @@ class NotesData {
     };
 
     deleteNotes(){
-        
+
     }
 }
 
