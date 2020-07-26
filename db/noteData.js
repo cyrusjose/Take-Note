@@ -5,6 +5,10 @@ const writeFileAsync = util.promisify(fs.writeFile);
 
 class NotesData {
 
+    constructor(){
+        this.idNum = 0;
+    }
+    
     readNotes(){
         return readFileAsync('db/db.json', 'utf8');
     }
@@ -30,7 +34,6 @@ class NotesData {
     }
 
     addNotes(){
-        this.idNum = 0;
         const {title, text} = note;
         const newNote = {title, text, id: ++this.idNum};
         return this.getNotes()
