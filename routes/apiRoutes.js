@@ -5,14 +5,14 @@
 // ===============================================================================
 
 const router = require("express").Router();
-const notes = require("../db/noteData");
+const notes = require("../db/noteData.js");
 
 router.get('/notes', (req, res) => {
     notes.getNotes()
     .then(notes => res.json(notes))
 });
 
-router.post('/api/notes', (req, res) => {
+router.post('/notes', (req, res) => {
     notes.addNotes(req.body)
     .then(notes => res.json(notes))
 });
