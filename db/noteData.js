@@ -36,9 +36,9 @@ class NotesData {
     const newNote = { title, text, id: ++this.idNum };
     return this.getNotes()
         // Get all the notes from previous and add new notes to the end of the array
-        .then((notes) => [...notes, newNote])
+        .then(notes => [...notes, newNote])
         // Write notes in file and update
-        .then((update) => this.writeNotes(update))
+        .then(update => this.writeNotes(update))
         .then(() => newNote)
   }
 

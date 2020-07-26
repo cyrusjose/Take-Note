@@ -7,19 +7,19 @@
 const router = require("express").Router();
 const notes = require("../db/noteData.js");
 
-router.get('/notes', (req, res) => {
+router.get('/notes', function(req, res) {
     notes.getNotes()
-    .then(notes => res.json(notes))
+    .then(notes => res.json(notes));
 });
 
-router.post('/notes', (req, res) => {
+router.post('/notes', function(req, res) {
     notes.addNotes(req.body)
-    .then(notes => res.json(notes))
+    .then(notes => res.json(notes));
 });
 
-router.delete('/notes/:id', (req, res) => {
+router.delete('/notes/:id', function(req, res) {
     notes.deleteNotes(req.params.id)
-    .then(() => res.json({success: true}))
+    .then(() => res.json({success: true}));
 });
 
 
