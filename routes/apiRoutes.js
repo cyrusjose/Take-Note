@@ -17,9 +17,10 @@ router.post('/notes', (req, res) => {
     .then(notes => res.json(notes))
 });
 
-// router.delete('/api/notes/:id', (req, res) => {
-
-// });
+router.delete('/notes/:id', (req, res) => {
+    notes.deleteNotes(req.params.id)
+    .then(() => res.json({success: true}))
+});
 
 
 

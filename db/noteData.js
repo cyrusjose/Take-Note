@@ -31,22 +31,22 @@ class NotesData {
     });
   }
 
-  addNotes() {
+  addNotes(note) {
     const { title, text } = note;
     const newNote = { title, text, id: ++this.idNum };
-    return (
-      this.getNotes()
+    return this.getNotes()
         // Get all the notes from previous and add new notes to the end of the array
         .then((notes) => [...notes, newNote])
         // Write notes in file and update
         .then((update) => this.writeNotes(update))
         .then(() => newNote)
-    );
   }
 
-  // deleteNotes(){
-
-  // }
+  deleteNotes(id){
+    return this.getNotes()
+        .then(notes => notes.filter(note => note.id !== parseInt(id)))
+        .then(update => this.writeNotes(update))
+  }
 }
 
 module.exports = new NotesData();
