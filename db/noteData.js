@@ -20,7 +20,7 @@ class NotesData {
                 noteArr = [].concat(JSON.parse(notes));
             }
             catch (err) {
-               console.log(err);
+               noteArr = [];
             }
             return noteArr;
         })
