@@ -1,52 +1,52 @@
-const fs = require("fs");
 const util = require("util");
-const readFileAsync = util.promisify(fs.readFile);
+const fs = require("fs");
+
+const readFileAsyn = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
-class NotesData {
-  constructor() {
-    this.idNum = 0;
-  }
 
-  readNotes() {
-    return readFileAsync("db/db.json", "utf8");
-  }
+class Notes {
+    constructor() {
+        this.idDum = 0;
+    }
+    read() {
+        return readFileAsyn("db/db.json", "utf8");
 
-  writeNotes(note) {
-    return writeFileAsync("db/db.json", JSON.stringify(note));
-  }
+    }
+    write(note) {
+        return writeFileAsync("db/db.json", JSON.stringify(note))
+    }
+    getNotes() {
+        console.log("get notes")
+        return this.read().then(notes => {
+            console.log(notes)
+            let notesArray;
+            try {
+                notesArray = [].concat(JSON.parse(notes));
+            }
+            catch (err) {
+                notesArray = [];
+            }
+            return notesArray;
+        })
 
-  getNotes() {
-    return this.readNotes().then((notes) => {
-      console.log(notes);
-      let noteArr;
-      // Try this block of code
-      try {
-        noteArr = [].concat(JSON.parse(notes));
-      } catch (err) {
-        // if there's an error
-        console.log(err);
-      }
-      return noteArr;
-    });
-  }
+    }
+    addNotes(note) {
+        console.log("add notes");
+        const { title, text } = note;
+        const newNote = { title, text, id: ++this.idDum }
+        return this.getNotes()
+            .then(notes => [...notes, newNote])
+            .then(updateNotes => this.write(updateNotes))
+            .then(() => newNote)
 
-  addNotes(note) {
-    const { title, text } = note;
-    const newNote = { title, text, id: ++this.idNum };
-    return this.getNotes()
-        // Get all the notes from previous and add new notes to the end of the array
-        .then(notes => [...notes, newNote])
-        // Write notes in file and update
-        .then(update => this.writeNotes(update))
-        .then(() => newNote)
-  }
-
-  deleteNotes(id){
-    return this.getNotes()
-        .then(notes => notes.filter(note => note.id !== parseInt(id)))
-        .then(update => this.writeNotes(update))
-  }
+    }
+    removeNote(id) {
+        console.log("remove notes");
+        return this.getNotes()
+            .then(notes => notes.filter(note => note.id !== parseInt(id)))
+            .then(updatedNotes => this.write(updatedNotes))
+    }
 }
 
-module.exports = new NotesData();
+module.exports = new Notes();
