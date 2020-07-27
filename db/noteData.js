@@ -1,52 +1,46 @@
 const util = require("util");
 const fs = require("fs");
 
-const readFileAsyn = util.promisify(fs.readFile);
+const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 
-class Notes {
-    constructor() {
-        this.idDum = 0;
-    }
-    read() {
-        return readFileAsyn("db/db.json", "utf8");
+class NotesData {
+    readNotes() {
+        return readFileAsync("db/db.json", "utf8");
 
     }
-    write(note) {
+    writeNotes(note) {
         return writeFileAsync("db/db.json", JSON.stringify(note))
     }
     getNotes() {
-        console.log("get notes")
-        return this.read().then(notes => {
-            console.log(notes)
-            let notesArray;
+        return this.readNotes().then(notes => {
+            let noteArr;
             try {
-                notesArray = [].concat(JSON.parse(notes));
+                noteArr = [].concat(JSON.parse(notes));
             }
             catch (err) {
-                notesArray = [];
+               console.log(err);
             }
-            return notesArray;
+            return noteArr;
         })
 
     }
     addNotes(note) {
-        console.log("add notes");
+       this.idNumber = 0;
         const { title, text } = note;
-        const newNote = { title, text, id: ++this.idDum }
+        const newNote = { title, text, id: ++this.idNumber }
         return this.getNotes()
             .then(notes => [...notes, newNote])
-            .then(updateNotes => this.write(updateNotes))
+            .then(upadate => this.writeNotes(upadate))
             .then(() => newNote)
 
     }
-    removeNote(id) {
-        console.log("remove notes");
+    deleteNote(id) {
         return this.getNotes()
             .then(notes => notes.filter(note => note.id !== parseInt(id)))
-            .then(updatedNotes => this.write(updatedNotes))
+            .then(updated => this.writeNotes(updated))
     }
 }
 
-module.exports = new Notes();
+module.exports = new NotesData();
