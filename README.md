@@ -19,6 +19,10 @@
  ## Usage
  The user simply needs to press "get started" on the home page and they are brought to the notes page where they are able to take, save, and delete notes. 
  <img src = "./public/assets/images/Screen Shot 2020-07-27 at 6.15.58 PM.png">
+ <img src = "./public/assets/images/Screen Shot 2020-07-27 at 6.17.30 PM.png">
+ <img src = "./public/assets/images/Screen Shot 2020-07-27 at 6.17.40 PM.png">
+ <img src = "./public/assets/images/Screen Shot 2020-07-27 at 6.19.03 PM.png">
+ <img src = "./public/assets/images/Screen Shot 2020-07-27 at 6.19.15 PM.png">
  
  ## License
  The chosen license for this application is MIT. Please follow the link below for more imformation about the license.
